@@ -7,7 +7,7 @@ from sqlmodel import SQLModel
 StockStatus = Literal["must_order_today", "low", "ok", "dead", "expiring"]
 
 
-class ProductStock(SQLModel):
+class ProductStock(BaseModel):
     """One row of the stock position. Also the shape sent to the AI as context."""
 
     product_id: str
@@ -23,14 +23,14 @@ class ProductStock(SQLModel):
     status: StockStatus
 
 
-class DashboardTotals(SQLModel):
+class DashboardTotals(BaseModel):
     revenue_7d: float
     units_sold_7d: int
     needs_order_count: int
     dead_stock_count: int
 
 
-class DashboardResponse(SQLModel):
+class DashboardResponse(BaseModel):
     generated_at: datetime
     totals: DashboardTotals
     products: list[ProductStock]
