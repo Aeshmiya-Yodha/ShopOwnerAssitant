@@ -31,3 +31,24 @@ export interface DashboardResponse {
   totals: DashboardTotals
   products: ProductStock[]
 }
+
+export type RequestSource = 'manual' | 'ai_suggested'
+
+export interface StockRequestLineCreate {
+  product_id: string
+  qty: number
+}
+
+export interface StockRequestCreate {
+  note: string | null
+  source: RequestSource
+  lines: StockRequestLineCreate[]
+}
+
+export interface StockRequestResponse {
+  request_id: number
+  created_at: string
+  status: string
+  line_count: number
+  total_qty: number
+}

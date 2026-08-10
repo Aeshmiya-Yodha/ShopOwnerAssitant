@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import DashboardPage from './DashboardPage'
+import RequestStockPage from './RequestStockPage'
 
 type Tab = 'dashboard' | 'request'
 
@@ -41,11 +42,7 @@ export default function App() {
       </nav>
 
       <main className="content">
-        {tab === 'dashboard' ? (
-          <DashboardPage />
-        ) : (
-          <div className="state">Stock requests are not built yet.</div>
-        )}
+        {tab === 'dashboard' ? <DashboardPage /> : <RequestStockPage />}
       </main>
     </div>
   )
