@@ -8,3 +8,12 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Node
+node_modules/
+
+# Secrets
+.env
+
+# Do NOT ignore static/ -- it holds the built React bundle, and
+# `databricks sync` skips anything git ignores.

@@ -1,20 +1,17 @@
 [project]
 name = "shopassistant"
 version = "0.1.0"
-description = "Add your description here"
+description = "Shop owner assistant on Databricks Apps"
 readme = "README.md"
 authors = [
     { name = "Aeshmiya-Yodha", email = "mnytworks@gmail.com" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.141.1",
     "sqlmodel>=0.0.39",
+    "uvicorn[standard]>=0.30",
 ]
 
-[project.scripts]
-shopassistant = "shopassistant:main"
-
-[build-system]
-requires = ["uv_build>=0.12.3,<0.13.0"]
-build-backend = "uv_build"
+[tool.uv]
+package = false
