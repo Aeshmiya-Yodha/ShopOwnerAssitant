@@ -2,7 +2,7 @@ import { mockDashboard } from './mockData'
 import type { DashboardResponse } from './types'
 
 // Flip to false once GET /api/dashboard returns real data.
-const USE_MOCK = true
+const USE_MOCK = false
 
 export async function fetchDashboard(): Promise<DashboardResponse> {
   if (USE_MOCK) {
