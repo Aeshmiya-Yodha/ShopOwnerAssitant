@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import ChatWidget from './ChatWidget'
 import DashboardPage from './DashboardPage'
 import RequestStockPage from './RequestStockPage'
 
@@ -44,6 +45,8 @@ export default function App() {
       <main className="content">
         {tab === 'dashboard' ? <DashboardPage /> : <RequestStockPage />}
       </main>
+
+      <ChatWidget />
     </div>
   )
 }

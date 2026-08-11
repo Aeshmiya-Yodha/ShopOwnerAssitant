@@ -46,9 +46,26 @@ export interface StockRequestCreate {
 }
 
 export interface StockRequestResponse {
-  request_id: number
+  request_id: number | null
   created_at: string
   status: string
   line_count: number
   total_qty: number
+}
+
+export type ChatRole = 'user' | 'assistant'
+
+export interface ChatMessage {
+  role: ChatRole
+  content: string
+}
+
+export interface ChatRequest {
+  conversation_id: number | null
+  message: string
+}
+
+export interface ChatResponse {
+  conversation_id: number
+  reply: string
 }
