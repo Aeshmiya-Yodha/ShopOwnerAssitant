@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from server.routers import dashboard
 from server.routers import request
-
+from server import database
 app = FastAPI(title="Shop Assistant")
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -14,6 +14,7 @@ STATIC_DIR = Path(__file__).parent / "static"
 @app.get("/api/health")
 def health():
     return {"ok": True, "python": sys.version}
+
 
 app.include_router(dashboard.router, prefix="/api")
 app.include_router(request.router , prefix="/api")
