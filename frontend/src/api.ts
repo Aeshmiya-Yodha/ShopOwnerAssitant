@@ -8,8 +8,8 @@ import type {
 // Flip to false once GET /api/dashboard returns real data.
 const USE_MOCK = false
 
-// Flip to false once POST /api/stock-requests exists.
-const USE_MOCK_REQUESTS = true
+// Use the FastAPI endpoint for stock requests.
+const USE_MOCK_REQUESTS = false
 
 export async function fetchDashboard(): Promise<DashboardResponse> {
   if (USE_MOCK) {

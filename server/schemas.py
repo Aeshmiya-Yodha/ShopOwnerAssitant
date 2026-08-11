@@ -67,7 +67,7 @@ class StockRequestCreate(BaseModel):
 
 
 class StockRequestResponse(BaseModel):
-    request_id: Annotated[int, Field(gt=0)]
+    request_id: Annotated[int|None, Field(gt=0)] =None
     created_at: Annotated[datetime, Field()]
     status: Annotated[
         Literal["submitted", "received", "cancelled"],
