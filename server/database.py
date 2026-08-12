@@ -1,5 +1,4 @@
 import os
-import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
@@ -21,9 +20,8 @@ def get_database_token() -> str:
     if _token is None or datetime.now(timezone.utc) >= _token_expires_at:
         from databricks.sdk import WorkspaceClient
 
-        credential = WorkspaceClient().database.generate_database_credential(
-            request_id=str(uuid.uuid4()),
-            instance_names=[os.environ["LAKEBASE_INSTANCE_NAME"]],
+        credential = WorkspaceClient().postgres.generate_database_credential(
+            endpoint=os.environ["LAKEBASE_ENDPOINT"],
         )
         _token = credential.token
         _token_expires_at = datetime.now(timezone.utc) + timedelta(minutes=50)
