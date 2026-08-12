@@ -59,3 +59,22 @@ class RequestLine(SQLModel, table=True):
 	product_id: str
 	qty: int
 
+class StockPosition(SQLModel, table=True):
+	"""Read-only projection of retail.v_stock_position. Never written to."""
+
+	__tablename__ = "v_stock_position"
+	__table_args__ = {"schema": "retail"}
+
+	product_id: str = Field(primary_key=True)
+	name: str
+	category: str
+	qty_on_hand: int
+	avg_daily_sales_7d: Decimal = Field(sa_type=Numeric(10, 2))
+	days_of_cover: Decimal = Field(sa_type=Numeric(10, 1))
+	lead_time_days: int
+	suggested_order_qty: int
+	stock_expiry_date: date | None = None
+	units_7d: int
+	revenue_7d: Decimal = Field(sa_type=Numeric(12, 2))
+	status: str
+

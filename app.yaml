@@ -1,1 +1,9 @@
 command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+env:
+  # PGHOST/PGPORT/PGDATABASE/PGUSER are injected by the attached Lakebase
+  # database resource; set them here only if that resource is not configured.
+  - name: LAKEBASE_INSTANCE_NAME
+    value: "REPLACE_WITH_INSTANCE_NAME"
+  - name: PGSSLMODE
+    value: "require"
