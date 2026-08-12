@@ -22,7 +22,8 @@ def get_dashboard(session: SessionDep) -> DashboardResponse:
         generated_at=datetime.now(timezone.utc),
         totals=DashboardTotals(
             revenue_7d=sum(row.revenue_7d for row in rows),
-            units_sold_7d=sum(row.units_7d for row in rows),
+            # The view exposes only the 7-day average, so scale it back up.
+            units_sold_7d=round(sum(row.avg_daily_sales_7d for row in rows) * 7),
             needs_order_count=sum(1 for row in rows if row.status in NEEDS_ORDER_STATUSES),
             dead_stock_count=sum(1 for row in rows if row.status == "dead"),
         ),

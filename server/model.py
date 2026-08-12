@@ -74,7 +74,6 @@ class StockPosition(SQLModel, table=True):
 	lead_time_days: int
 	suggested_order_qty: int
 	stock_expiry_date: date | None = None
-	units_7d: int
 	revenue_7d: Decimal = Field(sa_type=Numeric(12, 2))
 	status: str
 
