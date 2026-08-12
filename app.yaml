@@ -1,9 +1,15 @@
 command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 env:
-  # PGHOST/PGPORT/PGDATABASE/PGUSER are injected by the attached Lakebase
-  # database resource; set them here only if that resource is not configured.
   - name: LAKEBASE_ENDPOINT
-    value: "projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}"
+    value: "projects/lb-project-01/branches/production/endpoints/primary"
+  - name: PGHOST
+    value: "ep-sweet-feather-d87u6wuh.database.us-east-2.cloud.databricks.com"
+  - name: PGPORT
+    value: "5432"
+  - name: PGDATABASE
+    value: "databricks_postgres"
   - name: PGSSLMODE
     value: "require"
+  # PGUSER is injected by the attached Lakebase resource as the app's service
+  # principal. Set it here only if that resource is not configured.
