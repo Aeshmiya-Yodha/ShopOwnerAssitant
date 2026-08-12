@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import { fetchDashboard, submitStockRequest } from './api'
-import { formatDays, formatNumber } from './format'
+import { accentFor, formatDays, formatNumber, initials } from './format'
+import { CartIcon, CheckIcon, SendIcon } from './icons'
 import type {
   DashboardResponse,
   ProductStock,
@@ -121,18 +122,34 @@ export default function RequestStockPage() {
   }
 
   if (!data) {
-    return <div className="state">Loading products…</div>
+    return (
+      <div className="panel skeleton-panel">
+        {[0, 1, 2, 3, 4, 5, 6].map((slot) => (
+          <div key={slot} className="skeleton skeleton-line" />
+        ))}
+      </div>
+    )
   }
 
   if (result) {
     return (
       <div className="panel receipt">
-        <div className="receipt-tick">✓</div>
+        <div className="receipt-tick">
+          <CheckIcon />
+        </div>
         <h2>Request #{result.request_id} submitted</h2>
-        <p>
-          {formatNumber(result.line_count)} products,{' '}
-          {formatNumber(result.total_qty)} units. Status {result.status}.
-        </p>
+        <p>Your supplier order has been recorded.</p>
+        <div className="receipt-stats">
+          <span className="summary-chip">
+            <strong>{formatNumber(result.line_count)}</strong> products
+          </span>
+          <span className="summary-chip">
+            <strong>{formatNumber(result.total_qty)}</strong> units
+          </span>
+          <span className="summary-chip">
+            <strong>{result.status}</strong>
+          </span>
+        </div>
         <button
           type="button"
           className="btn btn-secondary"
@@ -146,9 +163,19 @@ export default function RequestStockPage() {
 
   return (
     <>
+      <div className="section-head">
+        <div>
+          <h2>Request stock</h2>
+          <p>Review the suggestions, adjust quantities, then send the order.</p>
+        </div>
+      </div>
+
       <section className="panel">
         <header className="panel-head">
-          <h2>Request stock</h2>
+          <h2>
+            <CartIcon />
+            Products
+          </h2>
           <span className="panel-sub">
             Products needing an order are ticked already
           </span>
@@ -178,27 +205,45 @@ export default function RequestStockPage() {
                     <td className="pick-col">
                       <input
                         type="checkbox"
+                        className="pick"
                         checked={isPicked}
                         onChange={() => toggle(product)}
                         aria-label={`Include ${product.name}`}
                       />
                     </td>
                     <td>
-                      <div className="cell-name">{product.name}</div>
-                      <div className="cell-sub">{product.category}</div>
+                      <div className="cell-product">
+                        <span
+                          className="cell-avatar"
+                          style={{ background: accentFor(product.product_id) }}
+                          aria-hidden="true"
+                        >
+                          {initials(product.name)}
+                        </span>
+                        <div>
+                          <div className="cell-name">{product.name}</div>
+                          <div className="cell-sub">{product.category}</div>
+                        </div>
+                      </div>
                     </td>
                     <td className="num">{formatNumber(product.qty_on_hand)}</td>
                     <td className="num">
-                      {formatDays(product.days_of_cover)}
+                      <span className="cover">
+                        {formatDays(product.days_of_cover)}
+                      </span>
                       <span className="cell-sub">
                         {' '}
                         vs {product.lead_time_days}d lead
                       </span>
                     </td>
                     <td className="num">
-                      {product.suggested_order_qty > 0
-                        ? formatNumber(product.suggested_order_qty)
-                        : '—'}
+                      {product.suggested_order_qty > 0 ? (
+                        <strong>
+                          {formatNumber(product.suggested_order_qty)}
+                        </strong>
+                      ) : (
+                        <span className="dash">—</span>
+                      )}
                     </td>
                     <td>
                       <span className={`badge badge-${product.status}`}>
@@ -247,8 +292,12 @@ export default function RequestStockPage() {
 
         <div className="submit-bar">
           <div className="submit-summary">
-            <strong>{formatNumber(lines.length)}</strong> products,{' '}
-            <strong>{formatNumber(totalUnits)}</strong> units
+            <span className="summary-chip">
+              <strong>{formatNumber(lines.length)}</strong> products
+            </span>
+            <span className="summary-chip">
+              <strong>{formatNumber(totalUnits)}</strong> units
+            </span>
           </div>
           <button
             type="button"
@@ -256,6 +305,7 @@ export default function RequestStockPage() {
             disabled={lines.length === 0 || submitting}
             onClick={handleSubmit}
           >
+            <SendIcon />
             {submitting ? 'Submitting…' : 'Submit request'}
           </button>
         </div>

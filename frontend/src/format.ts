@@ -45,3 +45,19 @@ export function formatTimestamp(value: string): string {
     minute: '2-digit',
   })
 }
+
+export function initials(name: string): string {
+  const words = name.trim().split(/\s+/)
+  const letters =
+    words.length > 1 ? `${words[0][0]}${words[1][0]}` : name.trim().slice(0, 2)
+  return letters.toUpperCase()
+}
+
+// Same product always gets the same avatar colour, so rows stay recognisable.
+export function accentFor(seed: string): string {
+  let hue = 0
+  for (let index = 0; index < seed.length; index += 1) {
+    hue = (hue * 31 + seed.charCodeAt(index)) % 360
+  }
+  return `linear-gradient(135deg, hsl(${hue} 68% 58%), hsl(${(hue + 28) % 360} 66% 46%))`
+}

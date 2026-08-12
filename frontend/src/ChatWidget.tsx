@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { sendChatMessage } from './api'
+import { CloseIcon, SendIcon, SparkIcon, TrashIcon } from './icons'
 
 const SUGGESTIONS = [
   'What needs ordering today?',
@@ -19,22 +20,6 @@ function clockTime(value: Date): string {
     hour: '2-digit',
     minute: '2-digit',
   })
-}
-
-function SparkIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path
-        d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"
-        fill="currentColor"
-      />
-      <path
-        d="M18.5 14.5l.9 2.4 2.4.9-2.4.9-.9 2.4-.9-2.4-2.4-.9 2.4-.9.9-2.4z"
-        fill="currentColor"
-        opacity="0.7"
-      />
-    </svg>
-  )
 }
 
 export default function ChatWidget() {
@@ -137,16 +122,7 @@ export default function ChatWidget() {
               aria-label="Clear conversation"
               title="Clear conversation"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M6 7h12M10 7V5h4v2m-7 0l1 12h8l1-12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <TrashIcon />
             </button>
           )}
           <button
@@ -156,15 +132,7 @@ export default function ChatWidget() {
             aria-label="Close assistant"
             title="Close"
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                d="M7 7l10 10M17 7L7 17"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-              />
-            </svg>
+            <CloseIcon />
           </button>
         </div>
       </header>
@@ -253,16 +221,7 @@ export default function ChatWidget() {
           onClick={() => send(draft)}
           aria-label="Send message"
         >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M12 19V5M12 5l-6 6M12 5l6 6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          <SendIcon />
         </button>
       </div>
     </section>
