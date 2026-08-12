@@ -27,7 +27,7 @@ export default function App() {
             <div>
               <h1>Shop Assistant</h1>
               <p>
-                Sharma General Store <i /> Inventory &amp; sales
+                Nova Mart <i /> Inventory &amp; sales
               </p>
             </div>
           </div>
